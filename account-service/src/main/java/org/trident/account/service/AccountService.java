@@ -8,4 +8,6 @@ public interface AccountService {
     AccountDTO findByAccountId(final Long accountId);
     void sendTemporaryPassword(final String userId);
     void updatePassword(final AccountDTO accountDTO);
+    AccountDTO findByUserId(final String userId);
+    AccountDTO findByUserId(final String userId, final boolean isAuthorizationRequest);
 }

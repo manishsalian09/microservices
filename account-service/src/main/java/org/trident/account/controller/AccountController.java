@@ -51,4 +51,10 @@ public class AccountController {
         this.accountService.updatePassword(accountDTO);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("authentication")
+    public ResponseEntity<?> findAccountByUserId(@RequestParam("userId") String userId) {
+        final AccountDTO accountDTO = this.accountService.findByUserId(userId, true);
+        return ResponseEntity.status(HttpStatus.OK).body(accountDTO);
+    }
 }
