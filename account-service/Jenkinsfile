@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    stages {
+        stage('Package') {
+            steps {
+            	echo 'Started Packaging'
+                sh 'mvn clean install -Dmaven.test.skip=true'
+                echo 'Packaging Completed'
+            }
+        }
+        stage('Build Container') {
+        	steps {
+        		echo 'Started Building Container'
+        		sh 'docker build -t account-service:1.0 -f Dockerfile .'
+        		echo 'Completed Building Container'
+        	}
+        }
+        stage('Publish Container') {
+        	steps {
+        		echo 'Started Publishing Container'
+        		echo 'Completed Publishing Container'
+        	}
+        }
+        stage('Running Container') {
+        	steps {
+        		echo 'Started Running Container'
+        		sh 'docker run -p 8081:8081 -d account-service:1.0'
+        		echo 'Completed Running Container'
+        	}
+        }
+    }
+    post {
+    	always {
+    		echo 'Clean Up'
+    	}
+    	success {
+    		echo 'Deployment is Successful'
+    	}
+    	failure {
+    		echo 'Deployment Failed'
+    	}
+    }
+}
