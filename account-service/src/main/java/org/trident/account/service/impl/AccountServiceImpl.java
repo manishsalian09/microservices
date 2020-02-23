@@ -1,4 +1,4 @@
-package org.trident.account.service;
+package org.trident.account.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,9 +8,11 @@ import org.springframework.util.StringUtils;
 import org.trident.account.dto.AccountDTO;
 import org.trident.account.dto.RoleDTO;
 import org.trident.account.entity.Account;
+import org.trident.account.entity.Group;
 import org.trident.account.entity.Role;
 import org.trident.account.exception.ValidationException;
 import org.trident.account.repository.AccountRepository;
+import org.trident.account.service.AccountService;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +44,7 @@ public class AccountServiceImpl implements AccountService {
         if (account.isEmpty()) throw new ValidationException("User account does not exist", null);
         AccountDTO accountDTO = account.get().toDto();
         accountDTO.setRoles(account.get().getRoles().stream().map(Role::toDto).collect(Collectors.toSet()));
+        accountDTO.setGroups(account.get().getGroups().stream().map(Group::toDto).collect(Collectors.toSet()));
         return accountDTO;
     }
 

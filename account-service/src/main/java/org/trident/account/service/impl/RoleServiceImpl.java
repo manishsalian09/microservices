@@ -1,10 +1,11 @@
-package org.trident.account.service;
+package org.trident.account.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.trident.account.dto.RoleDTO;
 import org.trident.account.entity.Role;
 import org.trident.account.exception.ValidationException;
 import org.trident.account.repository.RoleRepository;
+import org.trident.account.service.RoleService;
 
 import java.util.List;
 import java.util.Optional;

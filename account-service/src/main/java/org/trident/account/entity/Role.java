@@ -2,7 +2,16 @@ package org.trident.account.entity;
 
 import org.trident.account.dto.RoleDTO;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,18 +33,12 @@ public class Role implements Serializable {
     private Long createdBy;
     @Column(name = "created_on")
     private Date createdOn;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "wf_role_policy",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "policy_id", referencedColumnName = "policy_id")
     )
     private Set<Policy> policies = new HashSet<>();
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "wf_account_role",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id")
-    )
-    private Set<Account> accounts = new HashSet<>();
 
     public Long getRoleId() {
         return roleId;
@@ -72,12 +75,6 @@ public class Role implements Serializable {
     }
     public void setPolicies(Set<Policy> policies) {
         this.policies = policies;
-    }
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
     }
     public RoleDTO toDto() {
         RoleDTO roleDTO = new RoleDTO();

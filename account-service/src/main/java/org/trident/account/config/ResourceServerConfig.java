@@ -14,10 +14,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.cors().disable()
 			.headers().frameOptions().sameOrigin().disable()
 			.authorizeRequests()
-			.antMatchers("/api/users/authentication/**")
+			.antMatchers("/accounts/authentication/**")
 			.permitAll()
 			.antMatchers("/**")
-			//.authenticated();
-			.permitAll();
+			.authenticated();
 	}
 }

@@ -2,11 +2,14 @@ package org.trident.account.entity;
 
 import org.trident.account.dto.PolicyDTO;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "wf_policy")
@@ -30,12 +33,6 @@ public class Policy implements Serializable {
     private Boolean active;
     @Column(name = "json")
     private String json;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "wf_role_policy",
-            joinColumns = @JoinColumn(name = "policy_id", referencedColumnName = "policy_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
 
     public Long getPolicyId() {
         return policyId;
@@ -84,12 +81,6 @@ public class Policy implements Serializable {
     }
     public void setJson(String json) {
         this.json = json;
-    }
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
     public PolicyDTO toDto() {
         PolicyDTO policyDTO = new PolicyDTO();

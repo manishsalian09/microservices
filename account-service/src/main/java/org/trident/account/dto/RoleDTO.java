@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder(value = {
@@ -21,8 +20,7 @@ import java.util.stream.Collectors;
         "enabled",
         "createdBy",
         "createdOn",
-        "policies",
-        "accounts"
+        "policies"
 })
 public class RoleDTO implements Serializable {
 
@@ -43,8 +41,6 @@ public class RoleDTO implements Serializable {
     private Date createdOn;
     @JsonProperty("policies")
     private Set<PolicyDTO> policies = new HashSet<>();
-    @JsonProperty("accounts")
-    private Set<AccountDTO> accounts = new HashSet<>();
 
     public Long getRoleId() {
         return roleId;
@@ -81,12 +77,6 @@ public class RoleDTO implements Serializable {
     }
     public void setPolicies(Set<PolicyDTO> policies) {
         this.policies = policies;
-    }
-    public Set<AccountDTO> getAccounts() {
-        return accounts;
-    }
-    public void setAccounts(Set<AccountDTO> accounts) {
-        this.accounts = accounts;
     }
     public Role toEntity() {
         Role role = new Role();

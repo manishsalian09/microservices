@@ -2,7 +2,17 @@ package org.trident.account.entity;
 
 import org.trident.account.dto.AccountDTO;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,12 +52,18 @@ public class Account implements Serializable {
     private String temporaryPassword;
     @Column(name = "email_id")
     private String emailId;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "wf_account_role",
             joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "wf_account_group",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    )
+    private Set<Group> groups = new HashSet<>();
 
     public Long getAccountId() {
         return accountId;
@@ -139,6 +155,15 @@ public class Account implements Serializable {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
     public AccountDTO toDto() {
         AccountDTO accountDTO = new AccountDTO();
         accountDTO.setAccountId(this.getAccountId());

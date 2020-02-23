@@ -12,6 +12,6 @@ import org.trident.security.dto.AccountDTO;
 @RibbonClient(name = "account-service")
 public interface AccountServiceProxy {
 
-	@GetMapping("/account-service/accounts/authentication")
+	@GetMapping("/accounts/authentication")
 	ResponseEntity<AccountDTO> findAccountByUserId(@RequestParam("userId") String userId);
 }

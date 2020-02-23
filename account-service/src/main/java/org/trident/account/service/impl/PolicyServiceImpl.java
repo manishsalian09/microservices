@@ -1,4 +1,4 @@
-package org.trident.account.service;
+package org.trident.account.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import org.trident.account.dto.PolicyDTO;
 import org.trident.account.entity.Policy;
 import org.trident.account.exception.ValidationException;
 import org.trident.account.repository.PolicyRepository;
+import org.trident.account.service.PolicyService;
 
 import java.util.List;
 import java.util.Optional;

@@ -30,7 +30,8 @@ import java.util.Set;
         "lastLoginDate",
         "loginAttempts",
         "locked",
-        "roles"
+        "roles",
+        "groups"
 })
 public class AccountDTO implements Serializable {
 
@@ -79,6 +80,8 @@ public class AccountDTO implements Serializable {
     private String emailId;
     @JsonProperty("roles")
     private Set<RoleDTO> roles = new HashSet<>();
+    @JsonProperty("groups")
+    private Set<GroupDTO> groups = new HashSet<>();
 
     public Long getAccountId() {
         return accountId;
@@ -170,6 +173,15 @@ public class AccountDTO implements Serializable {
     public void setRoles(Set<RoleDTO> roles) {
         this.roles = roles;
     }
+
+    public Set<GroupDTO> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<GroupDTO> groups) {
+        this.groups = groups;
+    }
+
     public Account toEntity() {
         Account account = new Account();
         account.setAccountId(this.getAccountId());

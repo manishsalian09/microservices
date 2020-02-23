@@ -10,8 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder(value = {
@@ -49,7 +47,6 @@ public class PolicyDTO implements Serializable {
     @NotBlank(message = "Cannot be blank")
     @JsonProperty("json")
     private String json;
-    private Set<RoleDTO> roles = new HashSet<>();
 
     public Long getPolicyId() {
         return policyId;
@@ -99,13 +96,6 @@ public class PolicyDTO implements Serializable {
     public void setJson(String json) {
         this.json = json;
     }
-    public Set<RoleDTO> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<RoleDTO> roles) {
-        this.roles = roles;
-    }
-
     public Policy toEntity() {
         Policy policy = new Policy();
         policy.setPolicyId(this.getPolicyId());
